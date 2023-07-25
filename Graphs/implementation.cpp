@@ -56,6 +56,7 @@ class Graph {
                         for (std::string n : nodes ) {
                             if (std::find(this->adjacentList[node].begin(), this->adjacentList[node].end(), n) == this->adjacentList[node].end()) {
                                 this->adjacentList[node].push_back(n);
+                                this->adjacentList[n].push_back(node);
                             } else {
                                 std::cout << "Edge: " << node << " -> " << n << " already exists in the graph\n";
                             }
