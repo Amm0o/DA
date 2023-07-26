@@ -23,9 +23,29 @@
 // So why would we use recursion?
 // --> Easier to write for some problems
 // --> Help implement DRY --> DO NOT REPEATE YOUR SELF
+// --> Usually recursion can be good when we don't know how many loops we will need
+//    --> Good with Trees
 // 
 // Draw Back:
 // High memory utilization due to stack overflow. 
+//
+// NOTE: Tail Call Optimization can eliminate the issue of the call stack increasing:
+// Tail call optimization (TCO) is a compiler optimization that eliminates the 
+// need for additional stack frames when a function call is the last operation in another function.
+//
+// In c++ it is not present by default on the compiler but we are able through configuration to add it when compiling using 
+// for instance GCC
+
+
+// ---------------------- When To Use? ----------------------
+// -->  BFS + DFS
+// -->  Some sort of soring algorithms
+// -->  Every time we are using Trees consider recursion
+// -->  Divide and conquer using Recursion
+// RULES:
+// 1. When a problem can be devided in subproblems that are instances of the initial problem
+// 2. Each instance of the subproblem is identical
+// 3. The solution to each subproblem can be combined to reach the solution
 
 
 #include <iostream>
