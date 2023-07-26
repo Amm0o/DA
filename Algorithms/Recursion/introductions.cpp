@@ -17,6 +17,16 @@
 // ---------------------- Recursion ----------------------
 // Eeach recursive function has to have a base case and a recursive case.
 
+// -------------------------------------------------------
+// Anything that can be implemented recursively can be done using loops
+//
+// So why would we use recursion?
+// --> Easier to write for some problems
+// --> Help implement DRY --> DO NOT REPEATE YOUR SELF
+// 
+// Draw Back:
+// High memory utilization due to stack overflow. 
+
 
 #include <iostream>
 
