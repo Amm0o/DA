@@ -7,18 +7,16 @@
 void insertionSort(int arr[], int size) {
 
     for (int i = 1; i < size; i++) {
-        int sorting = arr[i];
+        int key = arr[i];
         int c = i-1;
-
-        while (c >= 0 && arr[c] > sorting) {
+        while (c >= 0 && arr[c] > key) {
             arr[c+1] = arr[c];
             c--;
         }
-        arr[c+1] = sorting;
+
+        arr[c+1] = key;
     }
 }
-
-
 
 int main () {
     int arr[5] = {8,1,6,0,4};
