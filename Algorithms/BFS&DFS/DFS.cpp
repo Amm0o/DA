@@ -31,8 +31,37 @@
 // #6 Finding the shortest path:
 // BFS
 
+// 3 ways to implement:
+// --> Inorder EX:
+//          Tree:
+//              9
+//             / \
+//            4   20
+//           / \  / \
+//          1   6 15  170
+//          Inorder: [1,4,6,9,15,20,170]
+// --> PostOrder:
+//          Tree:
+//              9
+//             / \
+//            4   20
+//           / \  / \
+//          1   6 15  170
+//          PostOrder: [1,6,4,15,170,20,9]
+// --> Preorder (Usefull to recreate a tree):
+//          Tree:
+//              9
+//             / \
+//            4   20
+//           / \  / \
+//          1   6 15  170
+//          Preorder: [9,4,1,6,20,15,170]
+//
+// 
 
-
+#include <iostream>
+#include <vector>
+#include <queue>
 
 class Node {
     public:
@@ -43,7 +72,7 @@ class Node {
         Node(int value){
             this->value = value;
             this->right = nullptr;
-            this->left = nullptr
+            this->left = nullptr;
         }
 };
 
@@ -55,22 +84,30 @@ class BinarySearchTree {
             this->root = nullptr;
         }
 
-        void insert(Node* node, int value) {
-            if (this->root == nullptr) {
+void insert(Node* node, int value) {
+
+            // If root is empty
+            if(this->root == nullptr) {
                 this->root = new Node(value);
                 return;
-            } else if (value < node->value) {
+            }
+            // Insert to the left
+            if (value < node->value) {
                 if (node->left == nullptr) {
                     node->left = new Node(value);
                     return;
                 }
-                return insert(node->left, value);
-            } else if (value > node->value) {
+                insert(node->left,value);
+            }
+
+            // Insert to the right
+            if (value > node->value) {
                 if (node->right == nullptr) {
-                    nnode->right = new Node(value);
+                    node->right = new Node(value);
                     return;
                 }
-                return insert(node->right, value);
+                insert(node->right,value);
+
             }
         }
 
@@ -89,4 +126,111 @@ class BinarySearchTree {
 
             return false;
         }
+
+
+        std::vector<int> traverseInOrder(Node* node, std::vector<int>& list) {
+            if (node != nullptr) {
+                if (node->left != nullptr) {
+                    traverseInOrder(node->left, list);
+                }
+                list.push_back(node->value);
+                if (node->right != nullptr) {
+                    traverseInOrder(node->right, list);
+                }
+            }
+
+            return list;
+        }
+
+        std::vector<int> traversePreOrder(Node* node, std::vector<int>& list) {
+            if (node != nullptr) {
+                // Push each node from the root downwards.
+                list.push_back(node->value);
+                if (node->left != nullptr) {
+                    traversePreOrder(node->left, list);
+                }
+                if (node->right != nullptr) {
+                    traversePreOrder(node->right, list);
+                }
+            }
+
+            return list;
+        }
+
+        std::vector<int> traversePostOrder(Node* node, std::vector<int>& list) {
+            if (node != nullptr) {
+                // Push each node from the root downwards.
+                if (node->left != nullptr) {
+                    traversePostOrder(node->left, list);
+                }
+                if (node->right != nullptr) {
+                    traversePostOrder(node->right, list);
+                }
+                list.push_back(node->value);
+            }
+
+            return list;
+        }
+
+        // Using recursion
+        std::vector<int> DFSInOrder() {
+            std::vector<int> list;
+            traverseInOrder(this->root, list);
+            return list;
+        }
+
+        std::vector<int> DFSPreOrder() {
+            std::vector<int> list;
+            traversePreOrder(this->root, list);
+            return list;
+        }
+
+        std::vector<int> DFSPostOrder() {
+            std::vector<int> list;
+            traversePostOrder(this->root, list);
+            return list;
+        }
+
 };
+
+
+int main() {
+    
+    BinarySearchTree* tree = new BinarySearchTree();
+
+
+    tree->insert(tree->root, 9);
+    tree->insert(tree->root, 4);
+    tree->insert(tree->root, 6);
+    tree->insert(tree->root, 20);
+    tree->insert(tree->root, 170);
+    tree->insert(tree->root, 15);
+    tree->insert(tree->root, 1);
+
+
+    std::cout << "In order :\n";
+
+    std::vector<int> result = tree->DFSInOrder();
+    for (auto& n : result) {
+        std::cout << n << "->";
+    }
+
+    std::cout << "\nPre order :\n";
+
+    std::vector<int> result2 = tree->DFSPreOrder();
+    for (auto& n : result2) {
+        std::cout << n << "->";
+    }
+
+    std::cout << "\nPost order :\n";
+
+    std::vector<int> result3 = tree->DFSPostOrder();
+    for (auto& n : result3) {
+        std::cout << n << "->";
+    }
+
+
+    delete tree;
+    std::cout << std::endl;
+    return 0;
+}
