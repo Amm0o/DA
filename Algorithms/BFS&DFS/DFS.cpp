@@ -57,7 +57,7 @@
 //          1   6 15  170
 //          Preorder: [9,4,1,6,20,15,170]
 //
-// 
+// Memory usage is the height of the tree O(h)
 
 #include <iostream>
 #include <vector>
